@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Fancy Text Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #5c6bc0, #3949ab);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        h1 i {
+            color: #ffeb3b;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff9800;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .input-section {
+            padding: 30px;
+            background: #f5f7ff;
+            border-bottom: 2px solid #e0e5ff;
+        }
+        
+        .input-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        #text-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 18px 25px;
+            font-size: 1.2rem;
+            border: 2px solid #5c6bc0;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        #text-input:focus {
+            border-color: #3949ab;
+            box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.2);
+        }
+        
+        #text-input::placeholder {
+            color: #9e9e9e;
+        }
+        
+        .action-btn {
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(46, 125, 50, 0.3);
+        }
+        
+        .action-btn:active {
+            transform: translateY(0);
+        }
+        
+        .action-btn.copy-all {
+            background: linear-gradient(to right, #2196f3, #0d47a1);
+        }
+        
+        .action-btn.reset {
+            background: linear-gradient(to right, #f44336, #c62828);
+        }
+        
+        .styles-container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .style-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .style-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background: #f5f7ff;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e5ff;
+        }
+        
+        .style-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3949ab;
+        }
+        
+        .copy-btn {
+            background: #5c6bc0;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #3949ab;
+        }
+        
+        .preview-container {
+            padding: 25px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            word-break: break-word;
+        }
+        
+        .preview-text {
+            font-size: 1.8rem;
+            line-height: 1.4;
+        }
+        
+        .no-styles {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        footer a {
+            color: #64b5f6;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        footer a:hover {
+            color: #bb86fc;
+            text-decoration: underline;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Special styles for preview texts */
+        .vintage-style {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            color: #8B4513;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .neon-style {
+            color: #0ff;
+            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+        }
+        
+        .elegant-style {
+            font-family: 'Georgia', serif;
+            letter-spacing: 1px;
+            color: #333;
+        }
+        
+        .handwritten-style {
+            font-family: 'Comic Sans MS', cursive;
+        }
+        
+        .magic-style {
+            background: linear-gradient(to right, #ff00cc, #3333ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .luxury-style {
+            background: linear-gradient(to right, #D4AF37, #F5D033);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+        }
+        
+        .floral-style {
+            background: linear-gradient(to right, #FF1493, #9400D3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .cyber-style {
+            color: #00ff9d;
+            text-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d;
+        }
+        
+        .royal-style {
+            font-family: 'Times New Roman', serif;
+            color: #4B0082;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .shadow-style {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .outline-style {
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+        
+        @media (max-width: 900px) {
+            .styles-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .input-container {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                padding: 15px;
+                justify-content: center;
+            }
+            
+            .styles-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .counter {
+                position: static;
+                margin: 10px auto 0;
+                width: fit-content;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-magic"></i> Ultimate Fancy Text Generator</h1>
+            <p class="subtitle">Transform ordinary text into extraordinary designs with our premium text styles. Perfect for social media, branding, and creative projects!</p>
+            <div class="counter" id="style-counter">30 Styles</div>
+        </header>
+        
+        <section class="input-section">
+            <div class="input-container">
+                <input type="text" id="text-input" placeholder="Enter your text here..." value="Fancy Text">
+                <button class="action-btn copy-all" id="copy-all-btn">
+                    <i class="fas fa-copy"></i> Copy All
+                </button>
+                <button class="action-btn reset" id="clear-btn">
+                    <i class="fas fa-eraser"></i> Reset
+                </button>
+            </div>
+        </section>
+        
+        <div class="styles-container" id="styles-container">
+            <!-- Styles will be generated here by JavaScript -->
+        </div>
+        
+        <footer>
+            <p>Created with ❤️ | Share this premium tool with friends!</p>
+            <div class="social-icons">
+                <a href="#" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" title="Copy Link" id="share-btn"><i class="fas fa-link"></i></a>
+            </div>
+            <p>All text transformations are generated client-side - your data never leaves your browser.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Premium fancy text transformation functions
+        const fancyStyles = [
+            {
+                name: "𝓕𝓪𝓷𝓬𝔂 𝓒𝓾𝓻𝓼𝓲𝓿𝓮",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 65 && code <= 90) ? String.fromCodePoint(code + 119951) : 
+                           (code >= 97 && code <= 122) ? String.fromCodePoint(code + 119945) : char;
+                }).join(''),
+                style: "elegant-style"
+            },
+            {
+                name: "𝕯𝖊𝖈𝖔𝖗𝖆𝖙𝖎𝖛𝖊 𝕲𝖔𝖙𝖍𝖎𝖈",
+                transform: text => text.split('').map(char => {
+                    const gothic = "𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ";
+                    return (char >= 'A' && char <= 'Z') ? gothic[char.charCodeAt(0) - 65] : 
+                           (char >= 'a' && char <= 'z') ? gothic[char.charCodeAt(0) - 97].toLowerCase() : char;
+                }).join(''),
+                style: "vintage-style"
+            },
+            {
+                name: "🅒🅘🅡🅒🅛🅔🅓 🅢🅣🅨🅛🅔",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 65 && code <= 90) ? String.fromCodePoint(127280 + (code - 65)) : 
+                           (code >= 97 && code <= 122) ? String.fromCodePoint(127312 + (code - 97)) : 
+                           (code >= 48 && code <= 57) ? String.fromCodePoint(10122 + (code - 48)) : char;
+                }).join(''),
+                style: ""
+            },
+            {
+                name: "𝐁𝐨𝐥𝐝 𝐄𝐥𝐞𝐠𝐚𝐧𝐜𝐞",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 65 && code <= 90) || (code >= 97 && code <= 122) || 
+                           (code >= 48 && code <= 57) ? String.fromCodePoint(code + 120212) : char;
+                }).join(''),
+                style: "elegant-style"
+            },
+            {
+                name: "𝘌𝘭𝘦𝘨𝘢𝘯𝘵 𝘐𝘵𝘢𝘭𝘪𝘤",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 65 && code <= 90) ? String.fromCodePoint(code + 119743) : 
+                           (code >= 97 && code <= 122) ? String.fromCodePoint(code + 119737) : char;
+                }).join(''),
+                style: "elegant-style"
+            },
+            {
+                name: "ℙ𝕣𝕖𝕞𝕚𝕦𝕞 𝔻𝕠𝕦𝕓𝕝𝕖",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 65 && code <= 90) ? String.fromCodePoint(code + 120120) : 
+                           (code >= 97 && code <= 122) ? String.fromCodePoint(code + 120114) : 
+                           (code >= 48 && code <= 57) ? String.fromCodePoint(code + 120744) : char;
+                }).join(''),
+                style: ""
+            },
+            {
+                name: "🄿🅁🄴🅂🅃🄸🄶🄴 🅂🅀🅄🄰🅁🄴",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 65 && code <= 90) ? String.fromCodePoint(127312 + (code - 65)) : 
+                           (code >= 97 && code <= 122) ? String.fromCodePoint(127344 + (code - 97)) : char;
+                }).join(''),
+                style: ""
+            },
+            {
+                name: "𝔇𝔢𝔠𝔬𝔯𝔞𝔱𝔦𝔳𝔢 𝔉𝔯𝔞𝔨𝔱𝔲𝔯",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 65 && code <= 90) ? String.fromCodePoint(code + 120068) : 
+                           (code >= 97 && code <= 122) ? String.fromCodePoint(code + 120062) : char;
+                }).join(''),
+                style: "vintage-style"
+            },
+            {
+                name: "ᴇʟᴇɢᴀɴᴛ ꜱᴍᴀʟʟ ᴄᴀᴘꜱ",
+                transform: text => text.toLowerCase().split('').map(char => {
+                    const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀꜱᴛᴜᴠᴡxʏᴢ";
+                    return (char >= 'a' && char <= 'z') ? smallCaps[char.charCodeAt(0) - 97] : char;
+                }).join(''),
+                style: "elegant-style"
+            },
+            {
+                name: "ＭＯＮＯ　ＳＰＡＣＥＤ",
+                transform: text => text.split('').map(char => {
+                    const code = char.charCodeAt(0);
+                    return (code >= 33 && code <= 126) ? String.fromCodePoint(code + 65248) : char;
+                }).join(''),
+                style: ""
+            },
+            {
+                name: "✧･ﾟ: *✧ 𝓓𝓮𝓬𝓸𝓻𝓪𝓽𝓲𝓿𝓮 *:･ﾟ✧",
+                transform: text => `✧･ﾟ: *✧ ${text} *:･ﾟ✧`,
+                style: "magic-style"
+            },
+            {
+                name: "♛ ℙ𝕣𝕖𝕞𝕚𝕦𝕞 𝕔𝕣𝕠𝕨𝕟 ♛",
+                transform: text => `♛ ${text} ♛`,
+                style: "royal-style"
+            },
+            {
+                name: "★·.·´¯`·.·★ 𝓕𝓪𝓷𝓬𝔂 ★·.·´¯`·.·★",
+                transform: text => `★·.·´¯\`·.·★ ${text} ★·.·´¯\`·.·★`,
+                style: "luxury-style"
+            },
+            {
+                name: "✿◕ ‿ ◕✿ 𝓒𝓾𝓽𝓮 ✿◕ ‿ ◕✿",
+                transform: text => `✿◕ ‿ ◕✿ ${text} ✿◕ ‿ ◕✿`,
+                style: "floral-style"
+            },
+            {
+                name: "【﻿ＬＵＸＵＲｙ　ＢＯＸＥＤ】",
+                transform: text => `【${text}】`,
+                style: "shadow-style"
+            },
+            {
+                name: "『﻿ＳＴＹＬＩＳＨ　ＱＵＯＴＥＳ』",
+                transform: text => `『${text}』`,
+                style: ""
+            },
+            {
+                name: "𝓝𝓮𝓸𝓷 𝓖𝓵𝓸𝔀",
+                transform: text => text,
+                style: "neon-style"
+            },
+            {
+                name: "𝓗𝓪𝓷𝓭𝔀𝓻𝓲𝓽𝓽𝓮𝓷",
+                transform: text => text,
+                style: "handwritten-style"
+            },
+            {
+                name: "♔ 𝓚𝓲𝓷𝓰𝓵𝔂 ♔",
+                transform: text => `♔ ${text} ♔`,
+                style: "royal-style"
+            },
+            {
+                name: "≪ °❈° ≫ 𝓕𝓪𝓷𝓬𝔂 ≪ °❈° ≫",
+                transform: text => `≪ °❈° ≫ ${text} ≪ °❈° ≫`,
+                style: "floral-style"
+            },
+            {
+                name: "⚜️ ℒ𝓊𝓍𝓊𝓇𝓎 𝒢ℴ𝓁𝒹 ⚜️",
+                transform: text => `⚜️ ${text} ⚜️`,
+                style: "luxury-style"
+            },
+            {
+                name: "▁ ▂ ▄ ▅ ▆ ▇ █ 𝓢𝓽𝓪𝓲𝓻𝓼 █ ▇ ▆ ▅ ▄ ▂ ▁",
+                transform: text => `▁ ▂ ▄ ▅ ▆ ▇ █ ${text} █ ▇ ▆ ▅ ▄ ▂ ▁`,
+                style: "cyber-style"
+            },
+            {
+                name: "✼ ҉ ✼ 𝓜𝓪𝓰𝓲𝓬 𝓢𝓹𝓪𝓻𝓴𝓵𝓮 ✼ ҉ ✼",
+                transform: text => `✼ ҉ ✼ ${text} ✼ ҉ ✼`,
+                style: "magic-style"
+            },
+            {
+                name: "◈ 𝓟𝓻𝓮𝓬𝓲𝓸𝓾𝓼 𝓓𝓲𝓪𝓶𝓸𝓷𝓭 ◈",
+                transform: text => `◈ ${text} ◈`,
+                style: "luxury-style"
+            },
+            {
+                name: "✧･ﾟ: *✧･ﾟ:* 𝓜𝓪𝓰𝓲𝓬 *:･ﾟ✧*:･ﾟ✧",
+                transform: text => `✧･ﾟ: *✧･ﾟ:* ${text} *:･ﾟ✧*:･ﾟ✧`,
+                style: "magic-style"
+            },
+            {
+                name: "☯ 𝓑𝓪𝓵𝓪𝓷𝓬𝓮 ☯",
+                transform: text => `☯ ${text} ☯`,
+                style: "shadow-style"
+            },
+            {
+                name: "✧ 𝓞𝓾𝓽𝓵𝓲𝓷𝓮 ✧",
+                transform: text => text,
+                style: "outline-style"
+            },
+            {
+                name: "✧･ﾟ: *✧･ﾟ:* 𝓖𝓵𝓲𝓽𝓽𝓮𝓻 *:･ﾟ✧*:･ﾟ✧",
+                transform: text => `✧･ﾟ: *✧･ﾟ:* ${text} *:･ﾟ✧*:･ﾟ✧`,
+                style: "luxury-style"
+            },
+            {
+                name: "『﻿ＰＲＥＭＩＵＭ　ＳＴＹＬＥ』",
+                transform: text => `『${text}』`,
+                style: ""
+            }
+        ];
+
+        // DOM elements
+        const textInput = document.getElementById('text-input');
+        const stylesContainer = document.getElementById('styles-container');
+        const copyAllBtn = document.getElementById('copy-all-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const styleCounter = document.getElementById('style-counter');
+
+        // Initialize the app
+        function init() {
+            renderStyles(textInput.value);
+            setupEventListeners();
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            textInput.addEventListener('input', (e) => {
+                renderStyles(e.target.value);
+            });
+
+            copyAllBtn.addEventListener('click', copyAllStyles);
+            clearBtn.addEventListener('click', clearInput);
+            shareBtn.addEventListener('click', shareTool);
+        }
+
+        // Render all style cards
+        function renderStyles(text) {
+            stylesContainer.innerHTML = '';
+            
+            if (!text.trim()) {
+                text = "Fancy Text";
+                stylesContainer.innerHTML = `
+                    <div class="no-styles">
+                        <i class="fas fa-keyboard fa-3x" style="color: #5c6bc0; margin-bottom: 15px;"></i>
+                        <h2>Enter text to see premium styles</h2>
+                        <p>Type something in the input field above to generate transformed text</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            styleCounter.textContent = `${fancyStyles.length} Premium Styles`;
+            
+            fancyStyles.forEach((style, index) => {
+                const transformedText = style.transform(text);
+                
+                const card = document.createElement('div');
+                card.className = 'style-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="style-name">${style.name}</div>
+                        <button class="copy-btn" data-index="${index}">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="preview-container">
+                        <div class="preview-text ${style.style}">${transformedText}</div>
+                    </div>
+                `;
+                
+                stylesContainer.appendChild(card);
+            });
+            
+            // Add copy event listeners to buttons
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = e.target.getAttribute('data-index') || 
+                                 e.target.parentElement.getAttribute('data-index');
+                    copyToClipboard(fancyStyles[index].transform(text || "Fancy Text"));
+                    showFeedback(e.target, "Copied!");
+                });
+            });
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        // Copy all styles to clipboard
+        function copyAllStyles() {
+            let allText = "";
+            const text = textInput.value || "Fancy Text";
+            
+            fancyStyles.forEach(style => {
+                allText += `${style.name}:\n${style.transform(text)}\n\n`;
+            });
+            
+            copyToClipboard(allText);
+            showFeedback(copyAllBtn, "All Styles Copied!");
+        }
+
+        // Clear input field
+        function clearInput() {
+            textInput.value = "";
+            textInput.focus();
+            renderStyles("");
+        }
+
+        // Share tool
+        function shareTool() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Ultimate Fancy Text Generator',
+                    text: 'Check out this premium Fancy Text Generator tool!',
+                    url: window.location.href
+                })
+                .catch(console.error);
+            } else {
+                copyToClipboard(window.location.href);
+                showFeedback(shareBtn, "Link Copied!");
+            }
+        }
+
+        // Show feedback animation
+        function showFeedback(element, message) {
+            const originalText = element.innerHTML;
+            element.innerHTML = `<i class="fas fa-check"></i> ${message}`;
+            element.style.background = '#4caf50';
+            
+            setTimeout(() => {
+                element.innerHTML = originalText;
+                element.style.background = '';
+            }, 2000);
+        }
+
+        // Initialize the app when page loads
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
