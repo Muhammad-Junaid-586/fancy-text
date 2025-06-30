@@ -337,6 +337,185 @@
             color: white;
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
+        
+        .mirror-style {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .mirror-style::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transform: scaleY(-1);
+            opacity: 0.5;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .glitch-style {
+            position: relative;
+        }
+        
+        .glitch-style::before,
+        .glitch-style::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch-style::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
+        }
+        
+        .glitch-style::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
+        }
+        
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        .fire-style {
+            color: #ff5722;
+            text-shadow: 0 0 4px #ff9800, 0 0 8px #ff5722, 0 0 12px #f44336;
+            animation: flicker 0.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 0 0 4px #ff9800, 0 0 8px #ff5722, 0 0 12px #f44336;
+            }
+            20%, 24%, 55% {
+                text-shadow: 0 0 2px #ff9800, 0 0 6px #ff5722, 0 0 10px #f44336;
+            }
+        }
+
+        .holographic-style {
+            background: linear-gradient(45deg, #ff00cc, #3333ff, #00ffcc, #ffcc00);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: holographic 4s ease infinite;
+        }
+        
+        @keyframes holographic {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bubble-style {
+            display: inline-block;
+            padding: 0.3em 0.6em;
+            border-radius: 1em;
+            background-color: #e0f7fa;
+            color: #00796b;
+            box-shadow: 0 0 0 0.1em #80deea inset, 0 0.1em 0.2em rgba(0,0,0,0.2);
+            text-shadow: 0.05em 0.05em 0.1em rgba(0,0,0,0.1);
+        }
+
+        .metal-style {
+            color: #e0e0e0;
+            text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+        }
+
+        .space-style {
+            background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+        }
+
+        .rainbow-style {
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 3s linear infinite;
+            background-size: 200% 100%;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .matrix-style {
+            color: #00ff41;
+            text-shadow: 0 0 5px #008f11;
+            font-family: 'Courier New', monospace;
+        }
+
+        .sticker-style {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 0.2em 0.5em;
+            border-radius: 0.5em;
+            box-shadow: 0 0.2em 0.5em rgba(0,0,0,0.1), 
+                        inset 0 -0.2em 0.5em rgba(0,0,0,0.1),
+                        inset 0 0.2em 0.5em rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.5);
+            color: #333;
+        }
+
+        .water-style {
+            color: transparent;
+            background: url('https://images.unsplash.com/photo-1495727034151-8fdc73e332a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 5px rgba(0,150,255,0.3);
+        }
+
+        .graffiti-style {
+            font-family: 'Arial Black', sans-serif;
+            color: white;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+                        0 0 10px rgba(255,255,255,0.5);
+            background: linear-gradient(to right, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .crystal-style {
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 0 10px rgba(0,200,255,0.7),
+                         0 0 20px rgba(0,150,255,0.5),
+                         0 0 30px rgba(0,100,255,0.3);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            padding: 0.2em 0.5em;
+            border-radius: 0.5em;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .ancient-style {
+            font-family: 'Times New Roman', serif;
+            color: #8B4513;
+            text-shadow: 1px 1px 0px #5D2906,
+                         2px 2px 0px rgba(0,0,0,0.1);
+            background: linear-gradient(to bottom, #D2B48C, #8B4513);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
         @media (max-width: 900px) {
             .styles-container {
@@ -595,6 +774,151 @@
                 name: "『﻿ＰＲＥＭＩＵＭ　ＳＴＹＬＥ』",
                 transform: text => `『${text}』`,
                 style: ""
+            },
+            // New advanced styles with mirror effects and more
+            {
+                name: "𝕸𝖎𝖗𝖗𝖔𝖗 𝕰𝖋𝖋𝖊𝖈𝖙",
+                transform: text => {
+                    const mirrored = text.split('').reverse().join('');
+                    return `${text} | ${mirrored}`;
+                },
+                style: "mirror-style",
+                html: text => {
+                    const mirrored = text.split('').reverse().join('');
+                    return `<span class="mirror-style" data-text="${mirrored}">${text}</span>`;
+                }
+            },
+            {
+                name: "𝓖𝓵𝓲𝓽𝓬𝓱 𝓜𝓪𝓭𝓷𝓮𝓼𝓼",
+                transform: text => text,
+                style: "glitch-style",
+                html: text => `<span class="glitch-style" data-text="${text}">${text}</span>`
+            },
+            {
+                name: "𝓕𝓲𝓻𝓮 𝓣𝔂𝓹𝓮",
+                transform: text => text,
+                style: "fire-style"
+            },
+            {
+                name: "𝓗𝓸𝓵𝓸𝓰𝓻𝓪𝓹𝓱𝓲𝓬",
+                transform: text => text,
+                style: "holographic-style"
+            },
+            {
+                name: "𝓑𝓾𝓫𝓫𝓵𝓮 𝓢𝓽𝔂𝓵𝓮",
+                transform: text => text,
+                style: "bubble-style"
+            },
+            {
+                name: "𝓜𝓮𝓽𝓪𝓵 𝓛𝓸𝓸𝓴",
+                transform: text => text,
+                style: "metal-style"
+            },
+            {
+                name: "𝓢𝓹𝓪𝓬𝓮 𝓣𝓮𝔁𝓽",
+                transform: text => text,
+                style: "space-style"
+            },
+            {
+                name: "𝓡𝓪𝓲𝓷𝓫𝓸𝔀",
+                transform: text => text,
+                style: "rainbow-style"
+            },
+            {
+                name: "𝓜𝓪𝓽𝓻𝓲𝔁 𝓒𝓸𝓭𝓮",
+                transform: text => text,
+                style: "matrix-style"
+            },
+            {
+                name: "𝓢𝓽𝓲𝓬𝓴𝓮𝓻 𝓔𝓯𝓯𝓮𝓬𝓽",
+                transform: text => text,
+                style: "sticker-style"
+            },
+            {
+                name: "𝓦𝓪𝓽𝓮𝓻 𝓣𝓮𝔁𝓽",
+                transform: text => text,
+                style: "water-style"
+            },
+            {
+                name: "𝓖𝓻𝓪𝓯𝓯𝓲𝓽𝓲 𝓢𝓽𝔂𝓵𝓮",
+                transform: text => text,
+                style: "graffiti-style"
+            },
+            {
+                name: "𝓒𝓻𝔂𝓼𝓽𝓪𝓵 𝓔𝓯𝓯𝓮𝓬𝓽",
+                transform: text => text,
+                style: "crystal-style"
+            },
+            {
+                name: "𝓐𝓷𝓬𝓲𝓮𝓷𝓽 𝓢𝓬𝓻𝓲𝓹𝓽",
+                transform: text => text,
+                style: "ancient-style"
+            },
+            {
+                name: "𝓤𝓹𝓼𝓲𝓭𝓮 𝓓𝓸�𝓷",
+                transform: text => {
+                    const upsideDown = text.split('').map(char => {
+                        const upsideDownMap = {
+                            'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ',
+                            'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u',
+                            'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n',
+                            'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+                            'A': '∀', 'B': '𐐒', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': '⅁',
+                            'H': 'H', 'I': 'I', 'J': 'ſ', 'K': 'ʞ', 'L': '˥', 'M': 'W', 'N': 'N',
+                            'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥', 'U': '∩',
+                            'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+                            '0': '0', '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9',
+                            '7': 'ㄥ', '8': '8', '9': '6',
+                            ',': "'", '.': '˙', '?': '¿', '!': '¡', '"': '„', "'": ',', '`': ',',
+                            '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<',
+                            '&': '⅋', '_': '‾', ';': '؛', '∴': '∵', ' ': ' '
+                        };
+                        return upsideDownMap[char] || char;
+                    }).reverse().join('');
+                    return `${text} | ${upsideDown}`;
+                },
+                style: "mirror-style",
+                html: text => {
+                    const upsideDown = text.split('').map(char => {
+                        const upsideDownMap = {
+                            'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ',
+                            'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u',
+                            'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n',
+                            'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+                            'A': '∀', 'B': '𐐒', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': '⅁',
+                            'H': 'H', 'I': 'I', 'J': 'ſ', 'K': 'ʞ', 'L': '˥', 'M': 'W', 'N': 'N',
+                            'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥', 'U': '∩',
+                            'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+                            '0': '0', '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9',
+                            '7': 'ㄥ', '8': '8', '9': '6',
+                            ',': "'", '.': '˙', '?': '¿', '!': '¡', '"': '„', "'": ',', '`': ',',
+                            '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<',
+                            '&': '⅋', '_': '‾', ';': '؛', '∴': '∵', ' ': ' '
+                        };
+                        return upsideDownMap[char] || char;
+                    }).reverse().join('');
+                    return `<span class="mirror-style" data-text="${upsideDown}">${text}</span>`;
+                }
+            },
+            {
+                name: "𝓓𝓲𝓪𝓶𝓸𝓷𝓭 𝓕𝓻𝓪𝓶𝓮",
+                transform: text => `◆ ${text} ◆`,
+                style: "crystal-style"
+            },
+            {
+                name: "𝓢𝓽𝓪𝓻𝓻𝔂 𝓝𝓲𝓰𝓱𝓽",
+                transform: text => `☆ ${text} ☆`,
+                style: "space-style"
+            },
+            {
+                name: "𝓕𝓵𝓪𝓶𝓲𝓷𝓰 𝓣𝓮𝔁𝓽",
+                transform: text => `🔥 ${text} 🔥`,
+                style: "fire-style"
+            },
+            {
+                name: "𝓜𝓪𝓰𝓲𝓬 𝓢𝓹𝓪𝓻𝓴𝓼",
+                transform: text => `✨ ${text} ✨`,
+                style: "magic-style"
             }
         ];
 
@@ -643,6 +967,8 @@
 
             fancyStyles.forEach((style, index) => {
                 const transformedText = style.transform(text);
+                const previewHtml = style.html ? style.html(text) : 
+                    `<div class="preview-text ${style.style}">${transformedText}</div>`;
 
                 const card = document.createElement('div');
                 card.className = 'style-card';
@@ -654,7 +980,7 @@
                         </button>
                     </div>
                     <div class="preview-container">
-                        <div class="preview-text ${style.style}">${transformedText}</div>
+                        ${previewHtml}
                     </div>
                 `;
 
